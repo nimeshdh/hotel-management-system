@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Booking{% endblock %}
+{% block content %}
+<h2>Book Your Room</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label>Name:</label>
+        <input type="text" name="name" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Check-in Date:</label>
+        <input type="date" name="check_in" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Check-out Date:</label>
+        <input type="date" name="check_out" class="form-control">
+    </div>
+    <button class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

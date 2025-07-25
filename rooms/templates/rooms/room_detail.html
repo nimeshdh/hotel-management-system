@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Room Details{% endblock %}
+{% block content %}
+<h2>{{ room.name }}</h2>
+<img src="{{ room.image.url }}" class="img-fluid mb-3">
+<p>{{ room.description }}</p>
+<p><strong>Price:</strong> {{ room.price }} per night</p>
+<a href="/booking/{{ room.id }}/" class="btn btn-success">Book Now</a>
+{% endblock %}

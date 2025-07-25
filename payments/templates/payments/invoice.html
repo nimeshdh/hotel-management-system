@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Invoice{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        {% if status == 'success' %}
+        <h2 class="text-success">Payment Successful!</h2>
+        <p>Your booking has been confirmed. Below is your invoice:</p>
+
+        <table class="table table-bordered mt-3">
+            <tr>
+                <th>Invoice No:</th>
+                <td>{{ invoice_number }}</td>
+            </tr>
+            <tr>
+                <th>Name:</th>
+                <td>{{ customer_name }}</td>
+            </tr>
+            <tr>
+                <th>Room:</th>
+                <td>{{ room_name }}</td>
+            </tr>
+            <tr>
+                <th>Check-in:</th>
+                <td>{{ check_in }}</td>
+            </tr>
+            <tr>
+                <th>Check-out:</th>
+                <td>{{ check_out }}</td>
+            </tr>
+            <tr>
+                <th>Total Amount:</th>
+                <td>₹ {{ amount }}</td>
+            </tr>
+            <tr>
+                <th>Status:</th>
+                <td><span class="badge bg-success">Paid</span></td>
+            </tr>
+        </table>
+
+        <a href="/" class="btn btn-primary">Back to Home</a>
+
+        {% elif status == 'failure' %}
+        <h2 class="text-danger">Payment Failed!</h2>
+        <p>Please try again or contact support.</p>
+        <a href="/" class="btn btn-danger">Back to Home</a>
+
+        {% else %}
+        <h2 class="text-warning">No Payment Information Available</h2>
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
