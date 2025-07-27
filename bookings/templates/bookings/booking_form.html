@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load nepali_filters %}
 {% block title %}Book Room{% endblock %}
 {% block content %}
 <div class="row">
@@ -8,7 +9,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ room.get_room_type_display }}</h5>
                 <p class="card-text">{{ room.description }}</p>
-                                        <p class="card-text"><strong>Price:</strong> ₨{{ room.price_per_night }} per night</p>
+                <p class="card-text"><strong>Price:</strong> {{ room.price_per_night|nepali_currency }} per night</p>
             </div>
         </div>
         

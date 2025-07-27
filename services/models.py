@@ -51,7 +51,26 @@ class Service(models.Model):
     def get_display_price(self):
         """Return formatted price with currency"""
         if self.price:
-            return f"₨{self.price}"
+            # Format with commas as thousand separators and 2 decimal places
+            formatted_value = f"{self.price:.2f}"
+            
+            # Add commas for thousands
+            parts = formatted_value.split('.')
+            integer_part = parts[0]
+            
+            # Format with Nepali thousands separator
+            result = ""
+            for i, char in enumerate(reversed(integer_part)):
+                if i > 0 and i % 3 == 0:
+                    result = "," + result
+                result = char + result
+            
+            # Add decimal part if it exists
+            if len(parts) > 1:
+                result = f"{result}.{parts[1]}"
+            
+            # Add Nepali Rupee symbol
+            return f"₨ {result}"
         return "Contact for pricing"
 
     def get_duration_display(self):

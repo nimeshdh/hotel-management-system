@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load nepali_filters %}
 {% block title %}Room Details{% endblock %}
 {% block content %}
 <h2>Room {{ room.number }} - {{ room.get_room_type_display }}</h2>
 <p><strong>Description:</strong> {{ room.description }}</p>
-    <p><strong>Price:</strong> ₨{{ room.price_per_night }} per night</p>
+    <p><strong>Price:</strong> {{ room.price_per_night|nepali_currency }} per night</p>
 <p><strong>Status:</strong> 
     {% if room.is_available %}
         <span class="badge bg-success">Available</span>
