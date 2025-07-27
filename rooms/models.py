@@ -74,8 +74,6 @@ class Room(models.Model):
             amenities.append("TV")
         if self.has_balcony:
             amenities.append("Balcony")
-        if self.has_mountain_view:
-            amenities.append("Mountain View")
         if self.has_stupa_view:
             amenities.append("Stupa View")
         if self.has_private_bathroom:

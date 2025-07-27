@@ -31,10 +31,10 @@
                             <label class="form-label">Price Range</label>
                             <select class="form-select" id="priceFilter">
                                 <option value="">All Prices</option>
-                                <option value="0-50">Under ₨50</option>
-                                <option value="50-100">₨50 - ₨100</option>
-                                <option value="100-200">₨100 - ₨200</option>
-                                <option value="200+">Over ₨200</option>
+                                <option value="0-5000">Under ₨5000</option>
+                                <option value="5000-10000">₨5000 - ₨10000</option>
+                                <option value="10000-20000">₨10000 - ₨20000</option>
+                                <option value="20000+">Over ₨20000</option>
                             </select>
                         </div>
                         <div class="col-lg-3 col-md-6">
@@ -42,7 +42,6 @@
                             <select class="form-select" id="amenityFilter">
                                 <option value="">All Amenities</option>
                                 <option value="balcony">Balcony</option>
-                                <option value="mountain_view">Mountain View</option>
                                 <option value="stupa_view">Stupa View</option>
                                 <option value="kitchen">Kitchen</option>
                             </select>
@@ -101,7 +100,6 @@
                                 {% elif "AC" in amenity %}<i class="fas fa-snowflake"></i>
                                 {% elif "TV" in amenity %}<i class="fas fa-tv"></i>
                                 {% elif "Balcony" in amenity %}<i class="fas fa-door-open"></i>
-                                {% elif "View" in amenity %}<i class="fas fa-mountain"></i>
                                 {% elif "Bathroom" in amenity %}<i class="fas fa-bath"></i>
                                 {% elif "Service" in amenity %}<i class="fas fa-concierge-bell"></i>
                                 {% elif "Kitchen" in amenity %}<i class="fas fa-utensils"></i>
