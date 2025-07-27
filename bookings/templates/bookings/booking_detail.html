@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Booking Details{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Booking Confirmation</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success">
+                        <h4>✅ Booking Successful!</h4>
+                        <p>Your booking has been confirmed. Here are the details:</p>
+                    </div>
+                    
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Booking ID:</th>
+                            <td>#{{ booking.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Room:</th>
+                            <td>{{ booking.room.number }} - {{ booking.room.get_room_type_display }}</td>
+                        </tr>
+                        <tr>
+                            <th>Check-in:</th>
+                            <td>{{ booking.check_in }}</td>
+                        </tr>
+                        <tr>
+                            <th>Check-out:</th>
+                            <td>{{ booking.check_out }}</td>
+                        </tr>
+                        <tr>
+                            <th>Guests:</th>
+                            <td>{{ booking.guests }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status:</th>
+                            <td>
+                                {% if booking.status == 'pending' %}
+                                    <span class="badge bg-warning">Pending</span>
+                                {% elif booking.status == 'confirmed' %}
+                                    <span class="badge bg-success">Confirmed</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Cancelled</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                                                       <tr>
+                                   <th>Total Price:</th>
+                                   <td>₨{{ booking.room.price_per_night }}</td>
+                               </tr>
+                    </table>
+                    
+                    <div class="mt-3">
+                        <a href="/bookings/" class="btn btn-primary">View All Bookings</a>
+                        <a href="/rooms/" class="btn btn-secondary">Back to Rooms</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

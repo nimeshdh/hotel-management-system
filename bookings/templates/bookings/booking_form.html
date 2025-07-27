@@ -1,21 +1,34 @@
 {% extends 'base.html' %}
-{% block title %}Booking{% endblock %}
+{% block title %}Book Room{% endblock %}
 {% block content %}
-<h2>Book Your Room</h2>
-<form method="post">
-    {% csrf_token %}
-    <div class="mb-3">
-        <label>Name:</label>
-        <input type="text" name="name" class="form-control">
+<div class="row">
+    <div class="col-md-8">
+        <h2>Book Room {{ room.number }}</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ room.get_room_type_display }}</h5>
+                <p class="card-text">{{ room.description }}</p>
+                                        <p class="card-text"><strong>Price:</strong> ₨{{ room.price_per_night }} per night</p>
+            </div>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="check_in" class="form-label">Check-in Date:</label>
+                <input type="date" name="check_in" id="check_in" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="check_out" class="form-label">Check-out Date:</label>
+                <input type="date" name="check_out" id="check_out" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="guests" class="form-label">Number of Guests:</label>
+                <input type="number" name="guests" id="guests" class="form-control" value="1" min="1" max="4">
+            </div>
+            <button type="submit" class="btn btn-success">Confirm Booking</button>
+            <a href="/rooms/{{ room.id }}/" class="btn btn-secondary">Back to Room</a>
+        </form>
     </div>
-    <div class="mb-3">
-        <label>Check-in Date:</label>
-        <input type="date" name="check_in" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label>Check-out Date:</label>
-        <input type="date" name="check_out" class="form-control">
-    </div>
-    <button class="btn btn-primary">Submit</button>
-</form>
+</div>
 {% endblock %}

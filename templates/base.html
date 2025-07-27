@@ -4,31 +4,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Hotel Management{% endblock %}</title>
+    <title>{% block title %}Via-Via Boutique Hotel{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .hero-section {
+            background-attachment: fixed;
+        }
+        .card {
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+        .text-primary {
+            color: #0d6efd !important;
+        }
+        .bg-primary {
+            background-color: #0d6efd !important;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                background-attachment: scroll;
+                min-height: 40vh;
+            }
+            .display-3 {
+                font-size: 2rem;
+            }
+            .display-4 {
+                font-size: 1.75rem;
+            }
+            .display-5 {
+                font-size: 1.5rem;
+            }
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            .card-img-top {
+                height: 150px !important;
+            }
+            .btn-lg {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            .hero-section {
+                min-height: 30vh;
+            }
+            .display-3 {
+                font-size: 1.5rem;
+            }
+            .display-4 {
+                font-size: 1.25rem;
+            }
+            .btn-lg {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Currency symbol styling */
+        .currency-symbol {
+            font-weight: bold;
+            color: #28a745;
+        }
+        
+        /* Enhanced card styling */
+        .room-card {
+            height: 100%;
+        }
+        .room-card .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .room-card .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .room-card .card-body .d-grid {
+            margin-top: auto;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">HotelMS</a>
-            <div class="collapse navbar-collapse">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-hotel me-2"></i>Via-Via Boutique Hotel
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="/about/" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="rooms/" class="nav-link">Rooms</a></li>
-                    <li class="nav-item"><a href="bookings/" class="nav-link">Book Now</a></li>
-                    <li class="nav-item"><a href="/login/" class="nav-link">Login</a></li>
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/about/" class="nav-link">
+                            <i class="fas fa-info-circle me-1"></i>About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/rooms/" class="nav-link">
+                            <i class="fas fa-bed me-1"></i>Rooms
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/bookings/" class="nav-link">
+                            <i class="fas fa-calendar-check me-1"></i>My Bookings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login/" class="nav-link">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="container mt-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>{{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
         {% block content %}{% endblock %}
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-hotel me-2"></i>Via-Via Boutique Hotel</h5>
+                    <p class="mb-0">Your gateway to luxury and spirituality in Boudha, Kathmandu</p>
+                </div>
+                <div class="col-md-4">
+                    <h6>Contact Info</h6>
+                    <p class="mb-1">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        Boudha Mahankal, Kathmandu, Nepal
+                    </p>
+                    <p class="mb-1">
+                        <i class="fas fa-phone me-2"></i>
+                        <a href="tel:+9779847374201" class="text-white text-decoration-none">+977 9847374201</a>
+                    </p>
+                    <p class="mb-0">
+                        <i class="fas fa-envelope me-2"></i>
+                        <a href="mailto:info@viaviaboutique.com" class="text-white text-decoration-none">info@viaviaboutique.com</a>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h6>Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/rooms/" class="text-white text-decoration-none">Our Rooms</a></li>
+                        <li><a href="/about/" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="/bookings/" class="text-white text-decoration-none">Book Now</a></li>
+                        <li><a href="/login/" class="text-white text-decoration-none">Guest Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Via-Via Boutique Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

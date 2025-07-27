@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}My Bookings{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>My Bookings</h2>
+    
+    {% if bookings %}
+        <div class="row">
+            {% for booking in bookings %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Booking #{{ booking.id }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Room:</strong> {{ booking.room.number }} - {{ booking.room.get_room_type_display }}</p>
+                        <p><strong>Check-in:</strong> {{ booking.check_in }}</p>
+                        <p><strong>Check-out:</strong> {{ booking.check_out }}</p>
+                        <p><strong>Guests:</strong> {{ booking.guests }}</p>
+                        <p><strong>Status:</strong> 
+                            {% if booking.status == 'pending' %}
+                                <span class="badge bg-warning">Pending</span>
+                            {% elif booking.status == 'confirmed' %}
+                                <span class="badge bg-success">Confirmed</span>
+                            {% else %}
+                                <span class="badge bg-danger">Cancelled</span>
+                            {% endif %}
+                        </p>
+                                                       <p><strong>Price:</strong> ₨{{ booking.room.price_per_night }}</p>
+                        <a href="/bookings/{{ booking.id }}/" class="btn btn-primary btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <h4>No bookings found</h4>
+            <p>You haven't made any bookings yet. <a href="/rooms/">Browse our rooms</a> to get started!</p>
+        </div>
+    {% endif %}
+    
+    <div class="mt-3">
+        <a href="/rooms/" class="btn btn-primary">Browse Rooms</a>
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+{% endblock %} 

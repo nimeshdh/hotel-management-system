@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}Room Details{% endblock %}
 {% block content %}
-<h2>{{ room.name }}</h2>
-<img src="{{ room.image.url }}" class="img-fluid mb-3">
-<p>{{ room.description }}</p>
-<p><strong>Price:</strong> {{ room.price }} per night</p>
-<a href="/booking/{{ room.id }}/" class="btn btn-success">Book Now</a>
+<h2>Room {{ room.number }} - {{ room.get_room_type_display }}</h2>
+<p><strong>Description:</strong> {{ room.description }}</p>
+    <p><strong>Price:</strong> ₨{{ room.price_per_night }} per night</p>
+<p><strong>Status:</strong> 
+    {% if room.is_available %}
+        <span class="badge bg-success">Available</span>
+    {% else %}
+        <span class="badge bg-danger">Not Available</span>
+    {% endif %}
+</p>
+{% if room.is_available %}
+    <a href="/bookings/create/{{ room.id }}/" class="btn btn-success">Book Now</a>
+{% else %}
+    <button class="btn btn-secondary" disabled>Not Available</button>
+{% endif %}
+<a href="/rooms/" class="btn btn-primary">Back to Rooms</a>
 {% endblock %}

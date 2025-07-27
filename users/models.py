@@ -28,34 +28,3 @@ class CustomUser(AbstractUser):
 
     def is_customer(self):
         return self.role == 'customer'
-
-
-# Example Model for Hotel Room
-class Room(models.Model):
-    ROOM_TYPES = (
-        ('single', 'Single'),
-        ('double', 'Double'),
-        ('suite', 'Suite'),
-    )
-
-    room_number = models.CharField(max_length=10, unique=True)
-    room_type = models.CharField(max_length=10, choices=ROOM_TYPES)
-    price_per_night = models.DecimalField(max_digits=8, decimal_places=2)
-    is_available = models.BooleanField(default=True)
-
-    def __str__(self):
-        return f"Room {self.room_number} ({self.room_type})"
-
-
-# Example Model for Booking
-class Booking(models.Model):
-    user = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, related_name='bookings')
-    room = models.ForeignKey(
-        Room, on_delete=models.CASCADE, related_name='bookings')
-    check_in = models.DateField()
-    check_out = models.DateField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Booking by {self.user.username} for Room {self.room.room_number}"

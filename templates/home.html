@@ -1,9 +1,137 @@
 {% extends 'base.html' %}
-{% block title %}Home{% endblock %}
+{% block title %}Via-Via Boutique Hotel - Boudha, Kathmandu{% endblock %}
 {% block content %}
-<div class="text-center">
-    <h1>Welcome to Hotel Management System</h1>
-    <p>Book your dream stay with us!</p>
-    <a href="/rooms/" class="btn btn-primary">Explore Rooms</a>
+<div class="container-fluid p-0">
+    <!-- Hero Section -->
+    <div class="hero-section text-white text-center py-5" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position: center; min-height: 60vh; display: flex; align-items: center;">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">Via-Via Boutique Hotel</h1>
+            <p class="lead mb-4">Experience Luxury & Spirituality in the Heart of Boudha, Kathmandu</p>
+            <p class="mb-4">Your Gateway to the Sacred Boudhanath Stupa & Authentic Nepali Culture</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/rooms/" class="btn btn-primary btn-lg">Explore Rooms</a>
+                <a href="/bookings/" class="btn btn-outline-light btn-lg">Book Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container py-5">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-5 text-primary">Why Choose Via-Via Boutique Hotel?</h2>
+                <p class="lead">Discover the perfect blend of luxury, culture, and spirituality</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-map-marker-alt fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="card-title">Prime Location</h4>
+                        <p class="card-text">Located in Boudha Mahankal, just steps away from the sacred Boudhanath Stupa and Mahankal Temple.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-star fa-3x text-warning"></i>
+                        </div>
+                        <h4 class="card-title">Boutique Luxury</h4>
+                        <p class="card-text">Intimate setting with personalized service, modern amenities, and traditional Nepali hospitality.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-heart fa-3x text-danger"></i>
+                        </div>
+                        <h4 class="card-title">Cultural Experience</h4>
+                        <p class="card-text">Immerse yourself in authentic Nepali culture, spirituality, and traditional cuisine.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Info Section -->
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="text-primary mb-4">📍 Location & Contact</h3>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                        <div>
+                            <strong>Address:</strong><br>
+                            Via-Via Boutique Hotel<br>
+                            Boudha Mahankal, Kathmandu, Nepal
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-phone text-primary me-3"></i>
+                        <div>
+                            <strong>Phone:</strong><br>
+                            <a href="tel:+9779847374201" class="text-decoration-none">+977 9847374201</a>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-envelope text-primary me-3"></i>
+                        <div>
+                            <strong>Email:</strong><br>
+                            <a href="mailto:info@viaviaboutique.com" class="text-decoration-none">info@viaviaboutique.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="text-primary mb-4">🌟 Our Services</h3>
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">✅ Luxury Rooms</li>
+                                <li class="mb-2">✅ Traditional Cuisine</li>
+                                <li class="mb-2">✅ 24/7 Service</li>
+                                <li class="mb-2">✅ Free Wi-Fi</li>
+                                <li class="mb-2">✅ Airport Transfer</li>
+                                <li class="mb-2">✅ Cultural Tours</li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">✅ Yoga Classes</li>
+                                <li class="mb-2">✅ Spa Services</li>
+                                <li class="mb-2">✅ Rooftop Restaurant</li>
+                                <li class="mb-2">✅ Laundry Service</li>
+                                <li class="mb-2">✅ Travel Desk</li>
+                                <li class="mb-2">✅ Prayer Room</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h2 class="text-primary mb-4">Ready to Experience Via-Via Boutique Hotel?</h2>
+                <p class="lead mb-4">Book your stay today and discover the magic of Boudha, Kathmandu</p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="/rooms/" class="btn btn-primary btn-lg">View Our Rooms</a>
+                    <a href="/bookings/" class="btn btn-success btn-lg">Make a Booking</a>
+                    <a href="/about/" class="btn btn-outline-primary btn-lg">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

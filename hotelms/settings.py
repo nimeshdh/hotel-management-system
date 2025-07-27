@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bookings',
     'services',
     'payments',
+    'reviews',
     'rest_framework',
     'rest_framework_simplejwt',
 ]

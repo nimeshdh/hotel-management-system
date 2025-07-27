@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from .models import Booking
 from rooms.models import Room
-from rooms.serializers import RoomSerializer  # optional nested
+from rooms.serializers import RoomSerializer  
 from services.models import Service
-from services.serializers import ServiceSerializer  # optional nested
+from services.serializers import ServiceSerializer  
 from django.contrib.auth import get_user_model
 
 User = get_user_model()

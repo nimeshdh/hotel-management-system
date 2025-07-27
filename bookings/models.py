@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from rooms.models import Room  # assuming you have a Room model
+from rooms.models import Room  
 from services.models import Service
 
 
@@ -8,13 +8,12 @@ class Booking(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        # changed from 'bookings' to 'user_bookings' to avoid clashes
         related_name='user_bookings'
     )
     room = models.ForeignKey(
         Room,
         on_delete=models.CASCADE,
-        related_name='room_bookings'  # renamed to be clear and avoid conflicts
+        related_name='room_bookings' 
     )
     services = models.ManyToManyField(
         Service,

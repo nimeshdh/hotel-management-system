@@ -6,6 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import CustomUser
 from django.urls import reverse
+from rest_framework import viewsets
+from .serializers import UserSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
 
 
 def user_login(request):
@@ -79,7 +86,6 @@ def admin_dashboard(request):
 
 @login_required
 def staff_dashboard(request):
-    # You can add staff dashboard logic here
     if request.user.role != 'staff':
         return redirect('login')
     return render(request, 'users/staff_dashboard.html')
@@ -87,5 +93,4 @@ def staff_dashboard(request):
 
 @login_required
 def home(request):
-    # Home page after customer login
     return render(request, 'users/home.html')

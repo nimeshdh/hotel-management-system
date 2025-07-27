@@ -1,19 +1,216 @@
 {% extends 'base.html' %}
-{% block title %}Rooms{% endblock %}
+{% block title %}Our Rooms - Via-Via Boutique Hotel{% endblock %}
 {% block content %}
-<h2>Available Rooms</h2>
-<div class="row">
-    {% for room in rooms %}
-    <div class="col-md-4">
-        <div class="card mb-3">
-            <img src="{{ room.image.url }}" class="card-img-top" alt="Room Image">
-            <div class="card-body">
-                <h5 class="card-title">{{ room.name }}</h5>
-                <p class="card-text">{{ room.price }} per night</p>
-                <a href="/rooms/{{ room.id }}/" class="btn btn-primary">View Details</a>
+<div class="container">
+    <!-- Header Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-primary">Our Luxurious Rooms</h1>
+        <p class="lead">Experience comfort and elegance in the heart of Boudha, Kathmandu</p>
+    </div>
+
+    <!-- Room Filters -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-filter me-2"></i>Filter Rooms</h5>
+                    <div class="row g-3">
+                        <div class="col-lg-3 col-md-6">
+                            <label class="form-label">Room Type</label>
+                            <select class="form-select" id="roomTypeFilter">
+                                <option value="">All Types</option>
+                                <option value="single">Single Room</option>
+                                <option value="double">Double Room</option>
+                                <option value="deluxe">Deluxe Room</option>
+                                <option value="suite">Executive Suite</option>
+                                <option value="family">Family Room</option>
+                                <option value="budget">Budget Room</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <label class="form-label">Price Range</label>
+                            <select class="form-select" id="priceFilter">
+                                <option value="">All Prices</option>
+                                <option value="0-50">Under ₨50</option>
+                                <option value="50-100">₨50 - ₨100</option>
+                                <option value="100-200">₨100 - ₨200</option>
+                                <option value="200+">Over ₨200</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <label class="form-label">Amenities</label>
+                            <select class="form-select" id="amenityFilter">
+                                <option value="">All Amenities</option>
+                                <option value="balcony">Balcony</option>
+                                <option value="mountain_view">Mountain View</option>
+                                <option value="stupa_view">Stupa View</option>
+                                <option value="kitchen">Kitchen</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <label class="form-label">Availability</label>
+                            <select class="form-select" id="availabilityFilter">
+                                <option value="">All Rooms</option>
+                                <option value="available">Available Now</option>
+                                <option value="occupied">Currently Occupied</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    {% endfor %}
+
+    <!-- Rooms Grid -->
+    <div class="row g-4" id="roomsGrid">
+        {% for room in rooms %}
+        <div class="col-xl-4 col-lg-6 col-md-6 room-card" 
+             data-type="{{ room.room_type }}" 
+             data-price="{{ room.price_per_night }}"
+             data-amenities="{% for amenity in room.get_amenities_list %}{{ amenity|lower }}{% if not forloop.last %},{% endif %}{% endfor %}"
+             data-availability="{% if room.is_available %}available{% else %}occupied{% endif %}">
+            <div class="card h-100 shadow-sm">
+                {% if room.image %}
+                    <img src="{{ room.image.url }}" class="card-img-top" alt="Room {{ room.number }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-bed fa-3x text-muted"></i>
+                    </div>
+                {% endif %}
+                
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title mb-0">{{ room.number }} - {{ room.get_room_type_display }}</h5>
+                        <span class="badge {% if room.is_available %}bg-success{% else %}bg-danger{% endif %}">
+                            {% if room.is_available %}Available{% else %}Occupied{% endif %}
+                        </span>
+                    </div>
+                    
+                    <p class="card-text text-muted">{{ room.description|truncatewords:15 }}</p>
+                    
+                    <div class="mb-3">
+                        <span class="h5 text-primary">₨{{ room.price_per_night }}</span>
+                        <small class="text-muted">/ night</small>
+                    </div>
+                    
+                    <!-- Amenities Icons -->
+                    <div class="mb-3">
+                        {% for amenity in room.get_amenities_list|slice:":4" %}
+                            <span class="badge bg-light text-dark me-1" title="{{ amenity }}">
+                                {% if "Wi-Fi" in amenity %}<i class="fas fa-wifi"></i>
+                                {% elif "AC" in amenity %}<i class="fas fa-snowflake"></i>
+                                {% elif "TV" in amenity %}<i class="fas fa-tv"></i>
+                                {% elif "Balcony" in amenity %}<i class="fas fa-door-open"></i>
+                                {% elif "View" in amenity %}<i class="fas fa-mountain"></i>
+                                {% elif "Bathroom" in amenity %}<i class="fas fa-bath"></i>
+                                {% elif "Service" in amenity %}<i class="fas fa-concierge-bell"></i>
+                                {% elif "Kitchen" in amenity %}<i class="fas fa-utensils"></i>
+                                {% elif "Work" in amenity %}<i class="fas fa-laptop"></i>
+                                {% else %}<i class="fas fa-check"></i>{% endif %}
+                            </span>
+                        {% endfor %}
+                        {% if room.get_amenities_list|length > 4 %}
+                            <span class="badge bg-secondary">+{{ room.get_amenities_list|length|add:"-4" }} more</span>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Room Details -->
+                    <div class="row text-center mb-3">
+                        <div class="col-4">
+                            <small class="text-muted">Floor</small><br>
+                            <strong>{{ room.floor }}</strong>
+                        </div>
+                        <div class="col-4">
+                            <small class="text-muted">Size</small><br>
+                            <strong>{% if room.size_sqm %}{{ room.size_sqm }}m²{% else %}N/A{% endif %}</strong>
+                        </div>
+                        <div class="col-4">
+                            <small class="text-muted">Guests</small><br>
+                            <strong>{{ room.max_guests }}</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="/rooms/{{ room.id }}/" class="btn btn-primary">
+                            <i class="fas fa-eye me-2"></i>View Details
+                        </a>
+                        {% if room.is_available %}
+                            <a href="/bookings/create/{{ room.id }}/" class="btn btn-success">
+                                <i class="fas fa-calendar-check me-2"></i>Book Now
+                            </a>
+                        {% else %}
+                            <button class="btn btn-secondary" disabled>
+                                <i class="fas fa-times me-2"></i>Not Available
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle fa-2x mb-3"></i>
+                <h4>No rooms available at the moment</h4>
+                <p>Please check back later or contact us for availability.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
+
+<script>
+// Simple filter functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const filters = ['roomTypeFilter', 'priceFilter', 'amenityFilter', 'availabilityFilter'];
+    
+    filters.forEach(filterId => {
+        document.getElementById(filterId).addEventListener('change', filterRooms);
+    });
+    
+    function filterRooms() {
+        const roomType = document.getElementById('roomTypeFilter').value;
+        const priceRange = document.getElementById('priceFilter').value;
+        const amenity = document.getElementById('amenityFilter').value;
+        const availability = document.getElementById('availabilityFilter').value;
+        
+        const rooms = document.querySelectorAll('.room-card');
+        
+        rooms.forEach(room => {
+            let show = true;
+            
+            // Room type filter
+            if (roomType && room.dataset.type !== roomType) {
+                show = false;
+            }
+            
+            // Price filter
+            if (priceRange && show) {
+                const price = parseFloat(room.dataset.price);
+                const [min, max] = priceRange.split('-').map(p => p === '+' ? Infinity : parseFloat(p));
+                if (price < min || (max !== Infinity && price > max)) {
+                    show = false;
+                }
+            }
+            
+            // Amenity filter
+            if (amenity && show) {
+                const amenities = room.dataset.amenities.toLowerCase();
+                if (!amenities.includes(amenity.toLowerCase())) {
+                    show = false;
+                }
+            }
+            
+            // Availability filter
+            if (availability && show) {
+                if (room.dataset.availability !== availability) {
+                    show = false;
+                }
+            }
+            
+            room.style.display = show ? 'block' : 'none';
+        });
+    }
+});
+</script>
 {% endblock %}

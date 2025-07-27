@@ -19,18 +19,29 @@ from django.urls import path, include
 from rooms import views as room_views
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('users.urls')),
-    path('api/', include('services.urls')),
-    path('api/', include('rooms.urls')),
-    path('api/', include('payments.urls')),
-    path('api/', include('bookings.urls')),
+    path('api/users/', include('users.urls')),
+    path('api/services/', include('services.urls')),
+    path('api/rooms/', include('rooms.urls')),
+    path('api/payments/', include('payments.urls')),
+    path('api/bookings/', include('bookings.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('', room_views.home, name='home'),
+    path('about/', room_views.about, name='about'),
     path('rooms/', room_views.rooms, name='rooms'),
+    path('rooms/<int:pk>/', room_views.room_detail, name='room_detail'),
+    path('bookings/', include('bookings.urls')),
+    path('', include('users.urls')),
 ]
+
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
