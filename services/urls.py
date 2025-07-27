@@ -7,4 +7,5 @@ router.register(r'services', ServiceViewSet, basename='service')
 
 urlpatterns = [
     path('', include(router.urls)),
+    # path('list/', service_list, name='service_list'), # This line is removed
 ]

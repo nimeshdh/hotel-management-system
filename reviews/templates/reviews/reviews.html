@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Guest Reviews{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-5">Guest Reviews</h1>
+    
+    <div class="row mb-4">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Share Your Experience</h5>
+                    <p class="card-text">We value your feedback! Please take a moment to share your experience at Via-Via Boutique Hotel.</p>
+                    <a href="{% url 'add_review' %}" class="btn btn-primary">Write a Review</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="list-group">
+                <a href="#all" class="list-group-item list-group-item-action active">All Reviews</a>
+                <a href="#overall" class="list-group-item list-group-item-action">Overall Experience</a>
+                <a href="#cleanliness" class="list-group-item list-group-item-action">Cleanliness</a>
+                <a href="#service" class="list-group-item list-group-item-action">Service Quality</a>
+                <a href="#location" class="list-group-item list-group-item-action">Location</a>
+                <a href="#value" class="list-group-item list-group-item-action">Value for Money</a>
+                <a href="#amenities" class="list-group-item list-group-item-action">Amenities</a>
+                <a href="#food" class="list-group-item list-group-item-action">Food & Dining</a>
+                <a href="#staff" class="list-group-item list-group-item-action">Staff Friendliness</a>
+            </div>
+        </div>
+        
+        <div class="col-md-9">
+            <div id="all">
+                {% for review in reviews %}
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="card-title">{{ review.user.get_full_name|default:review.user.username }}</h5>
+                            <span class="badge bg-primary">{{ review.get_category_display }}</span>
+                        </div>
+                        <div class="mb-2">
+                            {% for i in "12345"|make_list %}
+                                {% if forloop.counter <= review.rating %}
+                                <i class="fas fa-star text-warning"></i>
+                                {% else %}
+                                <i class="far fa-star text-warning"></i>
+                                {% endif %}
+                            {% endfor %}
+                            <small class="text-muted ms-2">{{ review.created_at|date:"F d, Y" }}</small>
+                        </div>
+                        <p class="card-text">{{ review.comment }}</p>
+                        {% if review.room %}
+                        <small class="text-muted">Room: {{ review.room.name }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="alert alert-info">No reviews available yet. Be the first to share your experience!</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

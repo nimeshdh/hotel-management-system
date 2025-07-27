@@ -23,6 +23,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+# Add these new URL patterns to your existing urlpatterns list
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/users/', include('users.urls')),
@@ -38,7 +40,9 @@ urlpatterns = [
     path('rooms/', room_views.rooms, name='rooms'),
     path('rooms/<int:pk>/', room_views.room_detail, name='room_detail'),
     path('bookings/', include('bookings.urls')),
-    path('', include('users.urls')),
+    path('services/', include('services.urls')),
+    path('reviews/', include('reviews.urls')),
+    path('payments/', include('payments.urls')),
 ]
 
 # Serve media files during development

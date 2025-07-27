@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load nepali_filters %}
+{% block title %}Payment Details{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Payment Details</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="mb-1"><strong>Payment ID:</strong></p>
+                            <p>{{ payment.id }}</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="mb-1"><strong>Date:</strong></p>
+                            <p>{{ payment.timestamp|date:"F d, Y H:i" }}</p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="mb-1"><strong>Amount:</strong></p>
+                            <p class="fs-4">{{ payment.amount|nepali_currency }}</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="mb-1"><strong>Status:</strong></p>
+                            {% if payment.confirmed %}
+                            <span class="badge bg-success fs-6">Confirmed</span>
+                            {% else %}
+                            <span class="badge bg-warning text-dark fs-6">Pending</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="mb-1"><strong>Payment Method:</strong></p>
+                            <p>{{ payment.get_method_display }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-1"><strong>Description:</strong></p>
+                            <p>{{ payment.description|default:"--" }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="mb-1"><strong>Customer:</strong></p>
+                            <p>{{ payment.user.get_full_name|default:payment.user.username }}</p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'payment_list' %}" class="btn btn-secondary">Back to Payments</a>
+                        <a href="{% url 'invoice' payment.id %}" class="btn btn-primary">View Invoice</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

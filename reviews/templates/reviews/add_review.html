@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Add Review{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Share Your Experience</h2>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_category" class="form-label">Review Category</label>
+                            <select name="category" id="id_category" class="form-select" required>
+                                <option value="" selected disabled>Select a category</option>
+                                {% for value, text in category_choices %}
+                                <option value="{{ value }}">{{ text }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_room" class="form-label">Room (Optional)</label>
+                            <select name="room" id="id_room" class="form-select">
+                                <option value="" selected>General Review (No Specific Room)</option>
+                                {% for room in rooms %}
+                                <option value="{{ room.id }}">{{ room.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Rating</label>
+                            <div class="rating">
+                                {% for value, text in rating_choices %}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating{{ value }}" value="{{ value }}" required>
+                                    <label class="form-check-label" for="rating{{ value }}">{{ text }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_comment" class="form-label">Your Review</label>
+                            <textarea name="comment" id="id_comment" class="form-control" rows="5" required></textarea>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Submit Review</button>
+                            <a href="{% url 'reviews' %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load nepali_filters %}
+{% block title %}My Payments{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">My Payments</h1>
+    
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payment in payments %}
+                        <tr>
+                            <td>{{ payment.id }}</td>
+                            <td>{{ payment.timestamp|date:"M d, Y" }}</td>
+                            <td>{{ payment.amount|nepali_currency }}</td>
+                            <td>{{ payment.get_method_display }}</td>
+                            <td>{{ payment.description|default:"--" }}</td>
+                            <td>
+                                {% if payment.confirmed %}
+                                <span class="badge bg-success">Confirmed</span>
+                                {% else %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'payment_detail' payment.id %}" class="btn btn-sm btn-primary">View</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center">No payment records found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

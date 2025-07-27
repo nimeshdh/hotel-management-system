@@ -163,7 +163,9 @@
                 </div>
             {% endfor %}
         {% endif %}
-        {% block content %}{% endblock %}
+        {% block content %}
+        <!-- Child templates will insert content here -->
+        {% endblock %}
     </div>
 
     <!-- Footer -->
