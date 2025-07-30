@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p)mr$@q&1uv4^(6#%ly(8c-wt)r9!&)fr2*siqkuvg7p^f1icy'
+SECRET_KEY = 'your-long-and-random-secret-key-here' # Keep this as is, but remember to use a strong one in production
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] # Or ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -141,4 +141,11 @@ REST_FRAMEWORK = {
 # Authentication Redirect Settings
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/logout/'
+
+
+# Comment out or remove these lines for development:
+# SECURE_HSTS_SECONDS = 31536000  # 1 year
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True

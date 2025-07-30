@@ -21,12 +21,14 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from django.conf import settings
 from django.conf.urls.static import static
+from users import views as user_views
 
 
 # Add these new URL patterns to your existing urlpatterns list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('about/', room_views.about, name='about'), # Changed views.about to room_views.about
     path('api/users/', include('users.urls')),
     path('api/services/', include('services.urls')),
     path('api/rooms/', include('rooms.urls')),
@@ -42,6 +44,9 @@ urlpatterns = [
     path('bookings/', include('bookings.urls')),
     path('services/', include('services.urls')),
     path('reviews/', include('reviews.urls')),
+    path('login/', user_views.user_login, name='login'),
+    path('register/', user_views.user_register, name='register'),
+    path('logout/', user_views.user_logout, name='logout'),
     path('payments/', include('payments.urls')),
 ]
 

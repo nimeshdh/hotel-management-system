@@ -27,7 +27,7 @@ def add_review(request):
             category=category,
             room=room,
             rating=rating,
-            comment=comment
+            content=comment  # Changed 'comment' to 'content'
         )
         review.save()
         
